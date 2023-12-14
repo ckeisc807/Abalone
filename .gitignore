@@ -1,2 +1,7 @@
-AlphaBeta.h
+*.h
+.vscode
 tmp.*
+*.out
+! abalone.h
+*.cpp
+!ab.cpp
