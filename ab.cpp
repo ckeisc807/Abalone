@@ -61,6 +61,10 @@ int main() {
 					ava = true;
 					break;
 				}
+				else if (x1 == i.x2 && y1 == i.y2 && x2 == i.x1 && y2 == i.y1 && direction == i.direction) {
+					ava = true;
+					break;
+				}
 			}
 			if (ava) abalone.step(x1, y1, x2, y2, direction);
 		}
