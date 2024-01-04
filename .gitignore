@@ -5,3 +5,4 @@ tmp.*
 ! abalone.h
 *.cpp
 !ab.cpp
+.clang-format
