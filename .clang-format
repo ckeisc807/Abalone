@@ -1,0 +1,29 @@
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 0
+UseTab: true
+AllowShortFunctionsOnASingleLine: Empty
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: true
+AllowShortFunctionOnASingleLine: InlineOnly
+AllowShortLoopsOnASingleLine: True 
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AccessModifierOffset: -4
+NamespaceIndentation: All
+BreakBeforeBraces: Custom
+BreakArrays: false 
+BraceWrapping:
+  AfterCaseLabel: false 
+  AfterEnum: false 
+  AfterFunction: false
+  AfterNamespace: false 
+  AfterStruct: false
+  AfterUnion: false 
+  AfterExternBlock: false 
+  BeforeCatch: true
+  BeforeWhile: false
+  BeforeElse: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false 
+  SplitEmptyNamespace: false 

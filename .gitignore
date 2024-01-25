@@ -1,9 +1,4 @@
-*.h
 .vscode
 tmp.*
-*.out
-! abalone.h
-*.cpp
-!ab.cpp
-.clang-format
 tmp/*
+*.out
