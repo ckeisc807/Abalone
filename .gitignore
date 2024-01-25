@@ -6,3 +6,4 @@ tmp.*
 *.cpp
 !ab.cpp
 .clang-format
+tmp/*

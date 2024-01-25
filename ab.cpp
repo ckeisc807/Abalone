@@ -22,7 +22,10 @@ int main() {
 	cout << "player1: " << (is_ai[1] ? "AI" : "You") << "\n"
 		 << "player2: " << (is_ai[2] ? "AI" : "You") << "\n";
 	bool ava = true;
+	time_t start_time = time(NULL);
+	int cnt = 0;
 	for (; !abalone.winner;) {
+		// if (cnt == 10) break;
 		if (is_ai[abalone.current_player]) {
 			cout << abalone << "\n"
 				 << "AI: " << abalone.current_player << "\n\n";
@@ -33,10 +36,15 @@ int main() {
 			cout << "\n";
 			cout << abalone << "\n"
 				 << "AI: " << abalone.current_player << "\n\n";
+			cout << "score[1]: " << abalone.score[1] << "\n";
+			cout << "score[2]: " << abalone.score[2] << "\n";
+			cout << "cnt_turn: " << cnt << "\n";
+			// current_move = MinMax(abalone).second;
 			current_move = AlphaBeta(abalone).second;
 			cout << "AI move: (" << current_move.x1 << "," << current_move.y1 << ") (" << current_move.x2 << "," << current_move.y2 << ") direction: " << current_move.direction << "\n";
 			assert(current_move.x1 != 15);
 			abalone.step(current_move);
+			cnt++;
 			cout << "AI move: "
 				 << "(" << current_move.x1 << "," << current_move.y1 << ") (" << current_move.x2 << "," << current_move.y2 << ") direction: " << current_move.direction << "\n";
 		}
@@ -69,4 +77,7 @@ int main() {
 			if (ava) abalone.step(x1, y1, x2, y2, direction);
 		}
 	}
+	cout << "time_cost: " << time(NULL) - start_time << "\n";
 }
+// Alpha Beta 58 seconds / 100 steps
+// Min Max

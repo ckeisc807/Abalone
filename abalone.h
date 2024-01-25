@@ -62,6 +62,21 @@ struct Abalone {
 			}
 		}
 	};
+	inline void reset() {
+		winner = 0;
+		cnt_turn = 0;
+		current_player = 1;
+		score[0] = 5;
+		score[1] = score[2] = 0;
+		for (int y = 0; y < 9; y++) {
+			for (int x = 0; x < 9; x++) {
+				if (abs(y - x) > 4) board[x][y] = -1;
+				else if (y <= 1 || y == 2 && 2 <= x && x <= 4) board[x][y] = 1;
+				else if (y >= 7 || y == 6 && 4 <= x && x <= 6) board[x][y] = 2;
+				else board[x][y] = 0;
+			}
+		}
+	}
 	inline void step(move mv) {
 		int x1 = mv.x1, x2 = mv.x2, y1 = mv.y1, y2 = mv.y2, direction = mv.direction;
 		int xm = x1 + x2 >> 1, ym = y1 + y2 >> 1;  // x_middle, y_middle
@@ -238,6 +253,7 @@ struct Abalone {
 			board[nextx][nexty] = current_player;
 			board[x1][y1] = 0;
 			current_player = (current_player == 1) ? 2 : 1;
+			cnt_turn++;
 			return;
 		}
 		int len = max(abs(x1 - x2), abs(y1 - y2)) + 1;
@@ -254,6 +270,7 @@ struct Abalone {
 				board[nextx][nexty] = current_player;
 				board[x1][y1] = 0;
 				current_player = (current_player == 1) ? 2 : 1;
+				cnt_turn++;
 				return;
 			}
 			else if (legal_point(nextx, nexty) && board[nextx][nexty] == 0) {
@@ -261,6 +278,7 @@ struct Abalone {
 				board[x2 + dx[direction]][y2 + dy[direction]] = current_player;
 				board[x1][y1] = 0;
 				current_player = (current_player == 1) ? 2 : 1;
+				cnt_turn++;
 				return;
 			}
 			assert(!legal_point(nextx, nexty));
@@ -269,6 +287,7 @@ struct Abalone {
 			board[x2 + dx[direction]][y2 + dy[direction]] = current_player;
 			board[x1][y1] = 0;
 			current_player = (current_player == 1) ? 2 : 1;
+			cnt_turn++;
 			return;
 		}
 		assert(board[x1 + dx[direction]][y1 + dy[direction]] == 0);
@@ -277,6 +296,7 @@ struct Abalone {
 		board[x1 + dx[direction]][y1 + dy[direction]] = board[xm + dx[direction]][ym + dy[direction]] = board[x2 + dx[direction]][y2 + dy[direction]] = current_player;
 		board[x1][y1] = board[xm][ym] = board[x2][y2] = 0;
 		current_player = (current_player == 1) ? 2 : 1;
+		cnt_turn++;
 		return;
 	}
 };
@@ -334,7 +354,25 @@ pair<int, move> AlphaBeta(Abalone &abalone, int depth = 0, int alpha = -inf, int
 		score = -AlphaBeta(temp, depth + 1, -beta, -alpha).first;
 		if (score >= beta) return {beta, empty_move};
 		if (score > alpha) alpha = score, best_move = mv;
-		if (best_move == empty_move) best_move = empty_move;
 	}
 	return {alpha, best_move};
+}
+pair<int, move> MinMax(Abalone &abalone, int depth = 0) {
+	int current_player = abalone.current_player, opponent_player = (current_player == 1) ? 2 : 1;
+	if (abalone.winner == current_player) return {weight[0], empty_move};
+	else if (abalone.winner == opponent_player) return {-weight[0], empty_move};
+	else if (depth == depth_limit) return {evaluate(abalone), empty_move};
+	int best_score = -inf, score;
+	move best_move = empty_move;
+	Abalone temp;
+	for (const move &mv : abalone.get_moves()) {
+		temp = abalone;
+		temp.step(mv);
+		score = -MinMax(temp, depth + 1).first;
+		if (score > best_score) {
+			best_score = score;
+			best_move = mv;
+		}
+	}
+	return {best_score, best_move};
 }
