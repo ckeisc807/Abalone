@@ -3,7 +3,7 @@
 #include"../EvaluationBase.h"
 struct test1: Evaluation {
     float weight[2] = {10,1};
-    float pos_value[5] = {0.5,0.4,1000,0.2,0.1};
+    float pos_value[5] = {1000,0.4,0.3,0.2,0.1};
     float evaluate (Abalone abalone) override {
         int current_player = abalone.current_player, opponent_player = (current_player == 1) ? 2 : 1;
         int delta_score = abalone.score[current_player] - abalone.score[opponent_player];
