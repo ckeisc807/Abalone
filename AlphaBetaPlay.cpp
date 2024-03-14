@@ -1,8 +1,15 @@
 #include <assert.h>
 
-#include <iostream>
+#include<iostream>
 
 #include "abalone.h"
+#include "alphaBeta.h"
+
+#include "evaluations/random.h"
+Random evaluation1 ;
+#include "evaluations/random.h"
+Random evaluation2 ;
+
 using std::cout, std::cin;
 int main() {
 	Abalone abalone;
@@ -32,7 +39,6 @@ int main() {
 			moves = abalone.get_moves();
 			cout << "avalible moves: " << moves.size() << "\n";
 			for (const move &i : moves) cout << "(" << i.x1 << "," << i.y1 << ") (" << i.x2 << "," << i.y2 << ") direction: " << i.direction << "\n";
-			cout << "\nevaluate value: " << evaluate(abalone) << "\n";
 			cout << "\n";
 			cout << abalone << "\n"
 				 << "AI: " << abalone.current_player << "\n\n";
@@ -40,7 +46,8 @@ int main() {
 			cout << "score[2]: " << abalone.score[2] << "\n";
 			cout << "cnt_turn: " << cnt << "\n";
 			// current_move = MinMax(abalone).second;
-			current_move = AlphaBeta(abalone).second;
+			if(abalone.current_player==1)current_move = AlphaBeta(abalone,evaluation1).second;
+			else current_move = AlphaBeta(abalone,evaluation2).second;
 			cout << "AI move: (" << current_move.x1 << "," << current_move.y1 << ") (" << current_move.x2 << "," << current_move.y2 << ") direction: " << current_move.direction << "\n";
 			assert(current_move.x1 != 15);
 			abalone.step(current_move);
@@ -57,7 +64,6 @@ int main() {
 
 			for (const move &i : moves) cout << "(" << i.x1 << "," << i.y1 << ") (" << i.x2 << "," << i.y2 << ") direction: " << i.direction << "\n";
 
-			cout << "evaluate value: " << evaluate(abalone) << "\n";
 			cout << "\n";
 			cout << abalone << "\n"
 				 << "player: " << abalone.current_player << "\n\n";
