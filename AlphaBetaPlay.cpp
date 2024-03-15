@@ -5,8 +5,8 @@
 #include "abalone.h"
 #include "alphaBeta.h"
 
-#include "evaluations/random.h"
-Random evaluation1 ;
+#include "evaluations/test1.h"
+test1 evaluation1 ;
 #include "evaluations/random.h"
 Random evaluation2 ;
 
@@ -34,12 +34,6 @@ int main() {
 	for (; !abalone.winner;) {
 		// if (cnt == 10) break;
 		if (is_ai[abalone.current_player]) {
-			cout << abalone << "\n"
-				 << "AI: " << abalone.current_player << "\n\n";
-			moves = abalone.get_moves();
-			cout << "avalible moves: " << moves.size() << "\n";
-			for (const move &i : moves) cout << "(" << i.x1 << "," << i.y1 << ") (" << i.x2 << "," << i.y2 << ") direction: " << i.direction << "\n";
-			cout << "\n";
 			cout << abalone << "\n"
 				 << "AI: " << abalone.current_player << "\n\n";
 			cout << "score[1]: " << abalone.score[1] << "\n";
