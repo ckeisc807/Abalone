@@ -11,6 +11,8 @@ test1 evaluation1 ;
 Random evaluation2 ;
 
 using std::cout, std::cin;
+using std::vector;
+
 int main() {
 	Abalone abalone;
 	int x1, x2, y1, y2, direction;
@@ -79,5 +81,6 @@ int main() {
 	}
 	cout << "time_cost: " << time(NULL) - start_time << "\n";
 }
+
 // Alpha Beta 58 seconds / 100 steps
 // Min Max
