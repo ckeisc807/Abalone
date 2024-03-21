@@ -2,3 +2,5 @@
 tmp.*
 tmp/*
 *.out
+/build
+AlphaBetaPlay
