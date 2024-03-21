@@ -2,9 +2,10 @@
 #define EvaluationBase
 
 #include"abalone.h"
+#include"alphaBeta.h"
 
 struct Evaluation {
-    virtual float evaluate(Abalone abalone){return 0;}
+    virtual EvaluationType evaluate(Abalone abalone){return 0;}
 };
 
 #endif

@@ -38,6 +38,9 @@ struct move {
 	inline bool operator==(const move &mv) {
 		return x1 == mv.x1 && y1 == mv.y1 && x2 == mv.x2 && y1 == mv.y2 && direction == mv.direction;
 	}
+	inline bool operator!=(const move &mv) {
+		return !(*this == mv);
+	}
 };
 struct Abalone {
 	int winner = 0;
