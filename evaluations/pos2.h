@@ -1,8 +1,15 @@
-#ifndef TEST1
-#define TEST1
+#ifndef POS2
+#define POS2
 #include"../EvaluationBase.h"
-struct test1: Evaluation {
-    const EvaluationType weight[2] = {10,1};
+#include<random>
+#ifndef RNADOM_DEVICE
+#define RNADOM_DEVICE
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_real_distribution<> dis(-1.0, 1.0);
+#endif
+struct pos2: Evaluation {
+    const EvaluationType weight[2] = {-10,1};
     const EvaluationType pos_value[5] = {1000,0.4,0.3,0.2,0.1};
     EvaluationType evaluate (Abalone abalone) override {
         int current_player = abalone.current_player, opponent_player = (current_player == 1) ? 2 : 1;
@@ -18,10 +25,10 @@ struct test1: Evaluation {
                 tmp = max(abs(x - 4), max(abs(y - 4), abs(abs(x - y) - 4)));
                 tmp_value = pos_value[tmp];
                 if (abalone.board[x][y] == current_player) value += tmp_value;
-                else if (abalone.board[x][y] == opponent_player) value -= tmp_value;
+                //else if (abalone.board[x][y] == opponent_player) value -= tmp_value;
             }
         }
-        return value;
+        return value+dis(gen)*0.1;
     }
 };
 
