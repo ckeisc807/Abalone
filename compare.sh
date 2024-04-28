@@ -1,12 +1,16 @@
 #!/bin/env bash
 
 NUM_RUNS=10
-TARGET_DIR="logs/depth3"
+DEPTH=3
+TARGET_DIR="logs/depth$DEPTH"
 
 echo "start batch compare between AlphaBeta and MinMax speed"
 
+mkdir -p "$TARGET_DIR"
 if [ ! -d "$TARGET_DIR" ]; then
     mkdir -p "$TARGET_DIR"
+    echo "$TARGET_DIR created"
+    sleep 5
 fi
 
 mkdir build

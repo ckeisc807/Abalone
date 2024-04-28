@@ -5,7 +5,7 @@
 #include "../EvaluationBase.h"
 
 struct pos_norand : Evaluation {
-	const EvaluationType weight[2] = {1e3, 1e2};
+	const EvaluationType weight[2] = {1e6, 1e2};
 	const EvaluationType pos_value[5] = {0.5, 0.4, 0.3, 0.2, 0.1};
 	const EvaluationType current_weight = 1;
 	const EvaluationType opponent_weight = -1;
