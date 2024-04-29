@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 		lout.open(argv[2], fstream::out | fstream::trunc);
 	}
 
-	clock_t total_time1_ab = 0, total_time1_mm = 0, total_time2_ab = 0, total_time2_mm = 0, current_time = 0;
+	long long total_time1_ab = 0, total_time1_mm = 0, total_time2_ab = 0, total_time2_mm = 0, current_time = 0;
 
 	Abalone abalone;
 	int x1, x2, y1, y2, direction;
@@ -82,11 +82,13 @@ int main(int argc, char** argv) {
 			cout << "time: " << current_time << '\n';
 			if (abalone.current_player == 1) current_move = AlphaBeta(abalone, evaluation1, depth_limit1), current_time = clock() - current_time, total_time1_ab += current_time;
 			else current_move = AlphaBeta(abalone, evaluation2, depth_limit2), current_time = clock() - current_time, total_time2_ab += current_time;
+			assert(current_time > 0);
 
 			current_time = clock();
 			cout << "time: " << current_time << '\n';
 			if (abalone.current_player == 1) tmp_move = MinMax(abalone, evaluation1, depth_limit1), current_time = clock() - current_time, total_time1_mm += current_time;
 			else tmp_move = MinMax(abalone, evaluation2, depth_limit2), current_time = clock() - current_time, total_time2_mm += current_time;
+			assert(current_time > 0);
 
 			cout << "AI move: (" << current_move.second.x1 << "," << current_move.second.y1 << ") (" << current_move.second.x2 << "," << current_move.second.y2 << ") direction: " << current_move.second.direction << "\n";
 			cout << "AI move: (" << tmp_move.second.x1 << "," << tmp_move.second.y1 << ") (" << tmp_move.second.x2 << "," << tmp_move.second.y2 << ") direction: " << tmp_move.second.direction << "\n";
