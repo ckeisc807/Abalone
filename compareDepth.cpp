@@ -14,9 +14,9 @@ const EvaluationType inf = 3e34;
 #include "evaluations/pos3.h"
 #include "evaluations/random.h"
 pos1 evaluation1;
-const int depth_limit1 = 3;
-Random evaluation2;
-const int depth_limit2 = 3;
+const int depth_limit1 = 5;
+pos1 evaluation2;
+const int depth_limit2 = 5;
 
 using std::cout, std::cin;
 using std::fstream;

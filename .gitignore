@@ -4,3 +4,5 @@
 ./copy.h
 AlphaBetaPlay
 /build
+/logs
+/datas

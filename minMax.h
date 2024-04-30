@@ -1,5 +1,5 @@
-#ifndef ALPHA_BETA
-#define ALPHA_BETA
+#ifndef MIN_MAX
+#define MIN_MAX
 
 #include <assert.h>
 
@@ -20,21 +20,19 @@ using std::vector, std::pair;
 const move empty_move;
 #endif
 
-pair<EvaluationType, move> AlphaBeta(Abalone &abalone, Evaluation &evaluate, int depth_limit = 3, int depth = 0, EvaluationType alpha = -inf, EvaluationType beta = inf) {
+pair<EvaluationType, move> MinMax(Abalone &abalone, Evaluation &evaluate, int depth_limit = 3, int depth = 0) {
 	int current_player = abalone.current_player, opponent_player = (current_player == 1) ? 2 : 1;
-	//	std::cout<<"depth: "<<depth<<" "<<depth_limit<<"\n";
 	if (abalone.winner || depth >= depth_limit) return {evaluate.evaluate(abalone), empty_move};
-	float best_score = -inf, score;
+	EvaluationType best_score = -inf, score;
 	move best_move = empty_move;
 	Abalone temp;
 	for (const move &mv : abalone.get_moves()) {
 		temp = abalone;
 		temp.step(mv);
-		score = -AlphaBeta(temp, evaluate, depth_limit, depth + 1, -beta, -alpha).first;
-		if (score >= beta) return {beta, empty_move};
-		if (score > alpha) alpha = score, best_move = mv;
+		score = -MinMax(temp, evaluate, depth_limit, depth + 1).first;
+		if (score > best_score) best_score = score, best_move = mv;
 	}
-	return {alpha, best_move};
+	return {best_score, best_move};
 }
 
 #endif

@@ -36,7 +36,7 @@ struct move {
 		return x1 | y1 << 4 | x2 << 8 | y2 << 12 | direction << 16;
 	}
 	inline bool operator==(const move &mv) {
-		return x1 == mv.x1 && y1 == mv.y1 && x2 == mv.x2 && y1 == mv.y2 && direction == mv.direction;
+		return x1 == mv.x1 && y1 == mv.y1 && x2 == mv.x2 && y2 == mv.y2 && direction == mv.direction;
 	}
 	inline bool operator!=(const move &mv) {
 		return !(*this == mv);
