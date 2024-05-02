@@ -1,36 +1,44 @@
 #!/bin/env bash
 
-NUM_RUNS=10
-DEPTH1=5
-DEPTH2=5
-TARGET_DIR="logs/depthcompare/$DEPTH1/$DEPTH2"
+NUM_RUNS=5
+DEPTH=5
+TARGET_DIR="logs/compare_depth"
 
-echo "start batch compare various depth and effect"
+echo "start batch compare between AlphaBeta depth"
 
-echo "crate dir: $TARGET_DIR"
-#mkdir -p "$TARGET_DIR"
-if [ ! -d "$TARGET_DIR" ]; then
-    mkdir -p "$TARGET_DIR"
-    echo "$TARGET_DIR created"
-    sleep 5
-fi
+# mkdir -p "$TARGET_DIR"
 
-mkdir build
-cd build 
-cmake .. && make 
+mkdir -p build 
+cd build
+build_dir=$(pwd)
+cmake .. && make
 
-
-# Check if compilation was successful
 if [ $? -eq 0 ]; then
     echo "Compilation successful. Running the program $NUM_RUNS times..."
-
-    # Run the program multiple times
-    for (( i=1; i<=$NUM_RUNS; i++ )); do
-        echo "Run $i:"
-        ./play 3 "../$TARGET_DIR/$i.txt"
-        echo "---------------------"
+    cd ..
+    
+    echo "$(pwd)"
+    mkdir -p $TARGET_DIR
+    cd $TARGET_DIR
+    echo "$(pwd)"
+    
+    for((depth1=1; depth1<=$DEPTH; depth1++ )); do
+        mkdir $depth1
+        cd $depth1
+        for((depth2=1; depth2<=$DEPTH; depth2++ )); do
+            mkdir $depth2
+            cd $depth2
+            echo "$(pwd) $depth1 $depth2"
+            for((i=1;i<=$DEPTH;i++)); do
+                echo "Run ($depth1,$depth2): $i $(pwd)"
+                sleep 1
+                $build_dir/play 3 "$i.txt" $depth1 $depth2
+                echo "----------------"
+            done
+            cd ..
+        done
+        cd ..
     done
-
-else
-    echo "Compilation failed. Exiting..."
+else 
+    echo "Compilation failed."
 fi

@@ -14,19 +14,25 @@ const EvaluationType inf = 3e34;
 #include "evaluations/pos3.h"
 #include "evaluations/random.h"
 pos1 evaluation1;
-const int depth_limit1 = 5;
+int depth_limit1 = 5;
 pos1 evaluation2;
-const int depth_limit2 = 5;
+int depth_limit2 = 5;
 
 using std::cout, std::cin;
 using std::fstream;
 using std::vector;
+using std::stoi;
 
 int main(int argc, char** argv) {
 	fstream lout;
 	bool with_log = (argc > 2);
 	if (with_log) {
 		lout.open(argv[2], fstream::out | fstream::trunc);
+	}
+
+	if (argc > 4) {
+		depth_limit1=stoi(argv[3]);
+		depth_limit2=stoi(argv[4]);
 	}
 
 	clock_t total_time1 = 0, total_time2 = 0, current_time = 0;
@@ -67,6 +73,7 @@ int main(int argc, char** argv) {
 	bool ava = true;
 	int cnt = 0;
 	for (; !abalone.winner;) {
+		if (cnt*depth_limit1*depth_limit2 > 10000) break;
 		// if (cnt == 10) break;
 		if (is_ai[abalone.current_player]) {
 			cout << abalone << "\n"
@@ -127,4 +134,5 @@ int main(int argc, char** argv) {
 		lout << total_time1 << " " << total_time2 << "\n";
 	}
 	lout.close();
+	
 }
