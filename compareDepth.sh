@@ -32,7 +32,7 @@ if [ $? -eq 0 ]; then
             for((i=1;i<=$DEPTH;i++)); do
                 echo "Run ($depth1,$depth2): $i $(pwd)"
                 sleep 1
-                $build_dir/play 3 "$i.txt" $depth1 $depth2
+                $build_dir/play 3 "$i.txt" $depth1 $depth2 &
                 echo "----------------"
             done
             cd ..
